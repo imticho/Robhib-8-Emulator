@@ -129,29 +129,29 @@ Robhib-8-Emulator/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Robhib-8-Emulator.dir/build.make CMakeFiles/Robhib-8-Emulator.dir/build
 .PHONY : Robhib-8-Emulator/fast
 
-src/hello.o: src/hello.cpp.o
-.PHONY : src/hello.o
+src/Memory.o: src/Memory.cpp.o
+.PHONY : src/Memory.o
 
 # target to build an object file
-src/hello.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Robhib-8-Emulator.dir/build.make CMakeFiles/Robhib-8-Emulator.dir/src/hello.cpp.o
-.PHONY : src/hello.cpp.o
+src/Memory.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Robhib-8-Emulator.dir/build.make CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o
+.PHONY : src/Memory.cpp.o
 
-src/hello.i: src/hello.cpp.i
-.PHONY : src/hello.i
+src/Memory.i: src/Memory.cpp.i
+.PHONY : src/Memory.i
 
 # target to preprocess a source file
-src/hello.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Robhib-8-Emulator.dir/build.make CMakeFiles/Robhib-8-Emulator.dir/src/hello.cpp.i
-.PHONY : src/hello.cpp.i
+src/Memory.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Robhib-8-Emulator.dir/build.make CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.i
+.PHONY : src/Memory.cpp.i
 
-src/hello.s: src/hello.cpp.s
-.PHONY : src/hello.s
+src/Memory.s: src/Memory.cpp.s
+.PHONY : src/Memory.s
 
 # target to generate assembly for a file
-src/hello.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Robhib-8-Emulator.dir/build.make CMakeFiles/Robhib-8-Emulator.dir/src/hello.cpp.s
-.PHONY : src/hello.cpp.s
+src/Memory.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Robhib-8-Emulator.dir/build.make CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.s
+.PHONY : src/Memory.cpp.s
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
@@ -186,9 +186,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Robhib-8-Emulator"
-	@echo "... src/hello.o"
-	@echo "... src/hello.i"
-	@echo "... src/hello.s"
+	@echo "... src/Memory.o"
+	@echo "... src/Memory.i"
+	@echo "... src/Memory.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

@@ -72,19 +72,19 @@ include CMakeFiles/Robhib-8-Emulator.dir/flags.make
 CMakeFiles/Robhib-8-Emulator.dir/codegen:
 .PHONY : CMakeFiles/Robhib-8-Emulator.dir/codegen
 
-CMakeFiles/Robhib-8-Emulator.dir/src/hello.cpp.o: CMakeFiles/Robhib-8-Emulator.dir/flags.make
-CMakeFiles/Robhib-8-Emulator.dir/src/hello.cpp.o: /Users/robbyshleb/personalProjects/Robhib-8-Emulator/src/hello.cpp
-CMakeFiles/Robhib-8-Emulator.dir/src/hello.cpp.o: CMakeFiles/Robhib-8-Emulator.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/robbyshleb/personalProjects/Robhib-8-Emulator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Robhib-8-Emulator.dir/src/hello.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Robhib-8-Emulator.dir/src/hello.cpp.o -MF CMakeFiles/Robhib-8-Emulator.dir/src/hello.cpp.o.d -o CMakeFiles/Robhib-8-Emulator.dir/src/hello.cpp.o -c /Users/robbyshleb/personalProjects/Robhib-8-Emulator/src/hello.cpp
+CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o: CMakeFiles/Robhib-8-Emulator.dir/flags.make
+CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o: /Users/robbyshleb/personalProjects/Robhib-8-Emulator/src/Memory.cpp
+CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o: CMakeFiles/Robhib-8-Emulator.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/robbyshleb/personalProjects/Robhib-8-Emulator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o -MF CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o.d -o CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o -c /Users/robbyshleb/personalProjects/Robhib-8-Emulator/src/Memory.cpp
 
-CMakeFiles/Robhib-8-Emulator.dir/src/hello.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Robhib-8-Emulator.dir/src/hello.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/robbyshleb/personalProjects/Robhib-8-Emulator/src/hello.cpp > CMakeFiles/Robhib-8-Emulator.dir/src/hello.cpp.i
+CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/robbyshleb/personalProjects/Robhib-8-Emulator/src/Memory.cpp > CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.i
 
-CMakeFiles/Robhib-8-Emulator.dir/src/hello.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Robhib-8-Emulator.dir/src/hello.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/robbyshleb/personalProjects/Robhib-8-Emulator/src/hello.cpp -o CMakeFiles/Robhib-8-Emulator.dir/src/hello.cpp.s
+CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/robbyshleb/personalProjects/Robhib-8-Emulator/src/Memory.cpp -o CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.s
 
 CMakeFiles/Robhib-8-Emulator.dir/src/main.cpp.o: CMakeFiles/Robhib-8-Emulator.dir/flags.make
 CMakeFiles/Robhib-8-Emulator.dir/src/main.cpp.o: /Users/robbyshleb/personalProjects/Robhib-8-Emulator/src/main.cpp
@@ -102,13 +102,13 @@ CMakeFiles/Robhib-8-Emulator.dir/src/main.cpp.s: cmake_force
 
 # Object files for target Robhib-8-Emulator
 Robhib__8__Emulator_OBJECTS = \
-"CMakeFiles/Robhib-8-Emulator.dir/src/hello.cpp.o" \
+"CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o" \
 "CMakeFiles/Robhib-8-Emulator.dir/src/main.cpp.o"
 
 # External object files for target Robhib-8-Emulator
 Robhib__8__Emulator_EXTERNAL_OBJECTS =
 
-Robhib-8-Emulator: CMakeFiles/Robhib-8-Emulator.dir/src/hello.cpp.o
+Robhib-8-Emulator: CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o
 Robhib-8-Emulator: CMakeFiles/Robhib-8-Emulator.dir/src/main.cpp.o
 Robhib-8-Emulator: CMakeFiles/Robhib-8-Emulator.dir/build.make
 Robhib-8-Emulator: CMakeFiles/Robhib-8-Emulator.dir/link.txt

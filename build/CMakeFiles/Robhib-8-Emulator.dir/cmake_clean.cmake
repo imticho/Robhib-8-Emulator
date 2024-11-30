@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/Robhib-8-Emulator.dir/src/hello.cpp.o"
-  "CMakeFiles/Robhib-8-Emulator.dir/src/hello.cpp.o.d"
+  "CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o"
+  "CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o.d"
   "CMakeFiles/Robhib-8-Emulator.dir/src/main.cpp.o"
   "CMakeFiles/Robhib-8-Emulator.dir/src/main.cpp.o.d"
   "Robhib-8-Emulator"

@@ -1,6 +1,8 @@
 #include <iostream>
-#include "hello.h"
+#include "Memory.h"
 
 int main(int, char**){
-    print_hello();
+    Memory memory;
+    memory.write(0, 3);
+    std::cout << int(memory.read(0)) << std::endl;
 }
