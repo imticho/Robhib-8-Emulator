@@ -22,7 +22,7 @@ void CPU::decode_and_execute(uint16_t instruction){
         switch (fourth_nibble)
         {
         case 0x0:
-            //clear screen
+            display.clear();
             break;
         case 0xE:
             pc = stack.back();
@@ -34,11 +34,45 @@ void CPU::decode_and_execute(uint16_t instruction){
         break;
     case 0x1:
         // set pc to 2nd,3rd,4th nibble combined since it is a 12 bit address
-        pc = (second_nibble << 8) | (third_nibble << 4) | fourth_nibble;
+        uint16_t address = instruction & 0x0FFF;
+        pc = address;
         break;
     case 0x2:
+        uint16_t address = instruction & 0x0FFF;
         stack.push_back(pc);
-        pc = (second_nibble << 8) | (third_nibble << 4) | fourth_nibble;
+        pc = address;
+        break;
+    case 0x6:
+        uint8_t target_reg = (instruction & 0x0F00) >> 8;
+        uint8_t value = instruction & 0x00FF;
+        registers.V[target_reg] = value;
+        break;
+    case 0x7:
+        uint8_t target_reg = (instruction & 0x0F00) >> 8;
+        uint8_t value_to_add = instruction & 0x00FF;
+        registers.V[target_reg] += value_to_add;
+        break;
+    case 0xA:
+        registers.I = instruction & 0x0FFF;
+        break;
+    case 0xD:
+        uint8_t x_reg = (instruction & 0x0F00) >> 8;
+        uint8_t y_reg = (instruction & 0x00F0) >> 4;
+        uint8_t n = instruction & 0x000F;
+        registers.V[0xF] = 0;
+
+        uint8_t xcoord = registers.V[x_reg] & 63;
+        uint8_t ycoord = registers.V[y_reg] & 31;
+        
+        for (int i = registers.I; i < n; i++) {
+            uint8_t spriteData = memory.read(i);
+            uint8_t mask = 0b10000000;
+            while(mask) {
+                if(mask & spriteData) {
+                    // stuff
+                }
+            }
+        }
         break;
     default:
         break;

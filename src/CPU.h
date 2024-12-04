@@ -1,6 +1,7 @@
 // CPU
 
 #include "Memory.h"
+#include "Display.h"
 #include <vector>
 
 struct Timers {
@@ -9,12 +10,7 @@ struct Timers {
 };
 
 struct Registers {
-    union {
-        struct {
-            uint8_t V0, V1, V2, V3, V4, V5, V6, V7, V8, V9, VA, VB, VC, VD, VE, VF;
-        };
-        std::array<uint8_t, 16> V; // Variable Registers
-    };
+    uint8_t V[16]; // General-purpose registers (V0 to VF)
     uint16_t I; // Index register
 };
 
@@ -26,6 +22,7 @@ private:
     std::vector<uint16_t> stack;
     Timers timers;
     Memory memory;
+    Display display = Display(64, 32);
     unsigned int pc= 0;
     unsigned int stack_pointer = 0;
 
