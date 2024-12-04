@@ -129,6 +129,30 @@ Robhib-8-Emulator/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Robhib-8-Emulator.dir/build.make CMakeFiles/Robhib-8-Emulator.dir/build
 .PHONY : Robhib-8-Emulator/fast
 
+src/CPU.o: src/CPU.cpp.o
+.PHONY : src/CPU.o
+
+# target to build an object file
+src/CPU.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Robhib-8-Emulator.dir/build.make CMakeFiles/Robhib-8-Emulator.dir/src/CPU.cpp.o
+.PHONY : src/CPU.cpp.o
+
+src/CPU.i: src/CPU.cpp.i
+.PHONY : src/CPU.i
+
+# target to preprocess a source file
+src/CPU.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Robhib-8-Emulator.dir/build.make CMakeFiles/Robhib-8-Emulator.dir/src/CPU.cpp.i
+.PHONY : src/CPU.cpp.i
+
+src/CPU.s: src/CPU.cpp.s
+.PHONY : src/CPU.s
+
+# target to generate assembly for a file
+src/CPU.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Robhib-8-Emulator.dir/build.make CMakeFiles/Robhib-8-Emulator.dir/src/CPU.cpp.s
+.PHONY : src/CPU.cpp.s
+
 src/Memory.o: src/Memory.cpp.o
 .PHONY : src/Memory.o
 
@@ -186,6 +210,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Robhib-8-Emulator"
+	@echo "... src/CPU.o"
+	@echo "... src/CPU.i"
+	@echo "... src/CPU.s"
 	@echo "... src/Memory.o"
 	@echo "... src/Memory.i"
 	@echo "... src/Memory.s"

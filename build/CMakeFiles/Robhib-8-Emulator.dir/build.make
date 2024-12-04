@@ -72,10 +72,24 @@ include CMakeFiles/Robhib-8-Emulator.dir/flags.make
 CMakeFiles/Robhib-8-Emulator.dir/codegen:
 .PHONY : CMakeFiles/Robhib-8-Emulator.dir/codegen
 
+CMakeFiles/Robhib-8-Emulator.dir/src/CPU.cpp.o: CMakeFiles/Robhib-8-Emulator.dir/flags.make
+CMakeFiles/Robhib-8-Emulator.dir/src/CPU.cpp.o: /Users/robbyshleb/personalProjects/Robhib-8-Emulator/src/CPU.cpp
+CMakeFiles/Robhib-8-Emulator.dir/src/CPU.cpp.o: CMakeFiles/Robhib-8-Emulator.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/robbyshleb/personalProjects/Robhib-8-Emulator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Robhib-8-Emulator.dir/src/CPU.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Robhib-8-Emulator.dir/src/CPU.cpp.o -MF CMakeFiles/Robhib-8-Emulator.dir/src/CPU.cpp.o.d -o CMakeFiles/Robhib-8-Emulator.dir/src/CPU.cpp.o -c /Users/robbyshleb/personalProjects/Robhib-8-Emulator/src/CPU.cpp
+
+CMakeFiles/Robhib-8-Emulator.dir/src/CPU.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Robhib-8-Emulator.dir/src/CPU.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/robbyshleb/personalProjects/Robhib-8-Emulator/src/CPU.cpp > CMakeFiles/Robhib-8-Emulator.dir/src/CPU.cpp.i
+
+CMakeFiles/Robhib-8-Emulator.dir/src/CPU.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Robhib-8-Emulator.dir/src/CPU.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/robbyshleb/personalProjects/Robhib-8-Emulator/src/CPU.cpp -o CMakeFiles/Robhib-8-Emulator.dir/src/CPU.cpp.s
+
 CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o: CMakeFiles/Robhib-8-Emulator.dir/flags.make
 CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o: /Users/robbyshleb/personalProjects/Robhib-8-Emulator/src/Memory.cpp
 CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o: CMakeFiles/Robhib-8-Emulator.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/robbyshleb/personalProjects/Robhib-8-Emulator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/robbyshleb/personalProjects/Robhib-8-Emulator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o -MF CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o.d -o CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o -c /Users/robbyshleb/personalProjects/Robhib-8-Emulator/src/Memory.cpp
 
 CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.i: cmake_force
@@ -89,7 +103,7 @@ CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.s: cmake_force
 CMakeFiles/Robhib-8-Emulator.dir/src/main.cpp.o: CMakeFiles/Robhib-8-Emulator.dir/flags.make
 CMakeFiles/Robhib-8-Emulator.dir/src/main.cpp.o: /Users/robbyshleb/personalProjects/Robhib-8-Emulator/src/main.cpp
 CMakeFiles/Robhib-8-Emulator.dir/src/main.cpp.o: CMakeFiles/Robhib-8-Emulator.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/robbyshleb/personalProjects/Robhib-8-Emulator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Robhib-8-Emulator.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/robbyshleb/personalProjects/Robhib-8-Emulator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Robhib-8-Emulator.dir/src/main.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Robhib-8-Emulator.dir/src/main.cpp.o -MF CMakeFiles/Robhib-8-Emulator.dir/src/main.cpp.o.d -o CMakeFiles/Robhib-8-Emulator.dir/src/main.cpp.o -c /Users/robbyshleb/personalProjects/Robhib-8-Emulator/src/main.cpp
 
 CMakeFiles/Robhib-8-Emulator.dir/src/main.cpp.i: cmake_force
@@ -102,17 +116,19 @@ CMakeFiles/Robhib-8-Emulator.dir/src/main.cpp.s: cmake_force
 
 # Object files for target Robhib-8-Emulator
 Robhib__8__Emulator_OBJECTS = \
+"CMakeFiles/Robhib-8-Emulator.dir/src/CPU.cpp.o" \
 "CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o" \
 "CMakeFiles/Robhib-8-Emulator.dir/src/main.cpp.o"
 
 # External object files for target Robhib-8-Emulator
 Robhib__8__Emulator_EXTERNAL_OBJECTS =
 
+Robhib-8-Emulator: CMakeFiles/Robhib-8-Emulator.dir/src/CPU.cpp.o
 Robhib-8-Emulator: CMakeFiles/Robhib-8-Emulator.dir/src/Memory.cpp.o
 Robhib-8-Emulator: CMakeFiles/Robhib-8-Emulator.dir/src/main.cpp.o
 Robhib-8-Emulator: CMakeFiles/Robhib-8-Emulator.dir/build.make
 Robhib-8-Emulator: CMakeFiles/Robhib-8-Emulator.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/robbyshleb/personalProjects/Robhib-8-Emulator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable Robhib-8-Emulator"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/robbyshleb/personalProjects/Robhib-8-Emulator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable Robhib-8-Emulator"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Robhib-8-Emulator.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -85,12 +85,12 @@ clean: CMakeFiles/Robhib-8-Emulator.dir/clean
 CMakeFiles/Robhib-8-Emulator.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Robhib-8-Emulator.dir/build.make CMakeFiles/Robhib-8-Emulator.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Robhib-8-Emulator.dir/build.make CMakeFiles/Robhib-8-Emulator.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/robbyshleb/personalProjects/Robhib-8-Emulator/build/CMakeFiles --progress-num=1,2,3 "Built target Robhib-8-Emulator"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/robbyshleb/personalProjects/Robhib-8-Emulator/build/CMakeFiles --progress-num=1,2,3,4 "Built target Robhib-8-Emulator"
 .PHONY : CMakeFiles/Robhib-8-Emulator.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Robhib-8-Emulator.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/robbyshleb/personalProjects/Robhib-8-Emulator/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/robbyshleb/personalProjects/Robhib-8-Emulator/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Robhib-8-Emulator.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/robbyshleb/personalProjects/Robhib-8-Emulator/build/CMakeFiles 0
 .PHONY : CMakeFiles/Robhib-8-Emulator.dir/rule
