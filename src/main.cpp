@@ -3,6 +3,7 @@
 
 int main(int, char**){
     Memory memory;
-    memory.write(0, 3);
-    std::cout << int(memory.read(0)) << std::endl;
+    for (int i = 80; i < 160; i ++) {
+        std::cout << std::hex << static_cast<int>(memory.read(i)) << " ";
+    }
 }
