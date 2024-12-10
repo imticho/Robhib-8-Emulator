@@ -6,20 +6,15 @@ class Display
 {
 private:
     SDL_Window* window;
-    SDL_Surface* surface;
-    uint32_t black = SDL_MapRGB(surface->format, 0, 0, 0);
-    uint32_t white = SDL_MapRGB(surface->format, 255, 255, 255);
+    SDL_Renderer* renderer;
+    SDL_Texture* texture;
     std::vector<uint8_t> screenBitmap;
-    const int window_width;
-    const int window_height;
+    int window_width;
+    int window_height;
 public:
-    Display(int width, int height);
+    Display(char const* title, int windowWidth, int windowHeight, int textureWidth, int textureHeight);
     ~Display();
-
-    void init();
-    void clear();
-    int getPixel(int x, int y);
-    void draw();
+    void Update(void const* buffer, int pitch);
 };
 
 

@@ -2,6 +2,8 @@
 
 #include "Memory.h"
 #include "Display.h"
+#include <fstream>
+#include <cstdint>
 #include <vector>
 
 struct Timers {
@@ -22,14 +24,17 @@ private:
     std::vector<uint16_t> stack;
     Timers timers;
     Memory memory;
-    Display display = Display(64, 32);
     unsigned int pc= 0;
     unsigned int stack_pointer = 0;
 
 public:
+    uint32_t video[64*32];
+
     CPU();
     ~CPU();
+    void cycle();
     uint16_t fetch();
     void decode_and_execute(uint16_t instruction);
+    void LoadROM(char const* filename);
 };
 

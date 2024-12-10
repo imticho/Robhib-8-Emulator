@@ -1,9 +1,20 @@
 #include <iostream>
-#include "Memory.h"
+#include "CPU.h"
 
-int main(int, char**){
-    Memory memory;
-    for (int i = 80; i < 160; i ++) {
-        std::cout << std::hex << static_cast<int>(memory.read(i)) << " ";
+
+const int CHIP8_WIDTH = 64;
+const int CHIP8_HEIGHT = 32;
+
+
+int main(int, char** argv){
+    
+    int videoScale = std::stoi(argv[1]);
+
+    CPU cpu;
+    Display display = Display("Robhib-8 emu", CHIP8_WIDTH * videoScale, CHIP8_HEIGHT * videoScale, CHIP8_WIDTH, CHIP8_HEIGHT);
+    int videoPitch = sizeof(cpu.video[0]) * CHIP8_WIDTH;
+    while(true) {
+        cpu.cycle();
+        display.Update(cpu.video, videoPitch);
     }
 }
