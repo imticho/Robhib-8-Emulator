@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <iostream>
 #include <array>
+#include <cstring>
 
 using std::uint8_t;
 using std::size_t;
