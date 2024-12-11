@@ -1,8 +1,14 @@
 #include "CPU.h"
+#include <algorithm>
 
 
 CPU::CPU() {
     LoadROM("../ibmlogo.ch8");
+    for(int i = 0; i < 334; i++) {
+        printf("Memory at %i: 0x%X\n",i, memory.read(i));
+    }
+    std::fill(std::begin(video), std::end(video), 0);
+    pc = 200;
 }
 
 CPU::~CPU() {}
@@ -34,12 +40,19 @@ void CPU::LoadROM(char const* filename) {
 }
 
 uint16_t CPU::fetch() {
-    uint16_t instruction = ((uint16_t)memory.read(pc) << 8) | memory.read(pc + 1);
+    uint16_t firstHalf = 0 | memory.read(pc);
+    firstHalf = firstHalf << 8;
+
+    uint16_t instruction = firstHalf | memory.read(pc + 1);
     pc += 2;
     return instruction;
 }
 
 void CPU::decode_and_execute(uint16_t instruction){
+    // printf("Instruction: 0x%X\n", instruction);
+    if(instruction == 0x00E0) {
+        std::cout << "read first instruction correctly\n";
+    }
     int mask = 0b1111;
     int first_nibble = (instruction & (mask << 12)) >> 12;
     int second_nibble = (instruction & (mask << 8)) >> 8;
@@ -51,7 +64,7 @@ void CPU::decode_and_execute(uint16_t instruction){
         switch (fourth_nibble)
         {
         case 0x0:
-            // clear();
+            std::fill(std::begin(video), std::end(video), 0);
             break;
         case 0xE:
             pc = stack.back();

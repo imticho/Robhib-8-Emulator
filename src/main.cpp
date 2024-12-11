@@ -13,8 +13,10 @@ int main(int, char** argv){
     CPU cpu;
     Display display = Display("Robhib-8 emu", CHIP8_WIDTH * videoScale, CHIP8_HEIGHT * videoScale, CHIP8_WIDTH, CHIP8_HEIGHT);
     int videoPitch = sizeof(cpu.video[0]) * CHIP8_WIDTH;
+
     while(true) {
         cpu.cycle();
+        // std::cout<< "cycle completed!\n";
         display.Update(cpu.video, videoPitch);
     }
 }

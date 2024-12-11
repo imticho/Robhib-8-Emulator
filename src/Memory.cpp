@@ -26,6 +26,7 @@ Memory::Memory() {
 
 uint8_t Memory::read(size_t address) const {
     if (address >= memory.size()) {
+        std::cout << address << std::endl;
         throw std::out_of_range("Memory read out of bounds");
     }
     return memory[address];

@@ -24,7 +24,7 @@ private:
     std::vector<uint16_t> stack;
     Timers timers;
     Memory memory;
-    unsigned int pc= 0;
+    unsigned int pc;
     unsigned int stack_pointer = 0;
 
 public:
