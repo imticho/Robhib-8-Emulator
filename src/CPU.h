@@ -1,4 +1,6 @@
 // CPU
+#ifndef CPU_H
+#define CPU_H
 
 #include "Memory.h"
 #include "Display.h"
@@ -25,7 +27,6 @@ private:
     Timers timers;
     Memory memory;
     unsigned int pc;
-    unsigned int stack_pointer = 0;
 
 public:
     uint32_t video[64*32];
@@ -36,5 +37,8 @@ public:
     uint16_t fetch();
     void decode_and_execute(uint16_t instruction);
     void LoadROM(char const* filename);
+
+    friend class Monitor;
 };
 
+#endif

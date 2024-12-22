@@ -1,5 +1,12 @@
 {
     "files.associations": {
         "ostream": "cpp"
+    },
+    "cmake.debugConfig": {
+        "miDebuggerPath": "/Library/Developer/CommandLineTools/usr/bin/lldb",
+        "externalConsole": true,
+        "args": [
+            "10"
+        ]
     }
 }
