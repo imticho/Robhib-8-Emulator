@@ -3,11 +3,13 @@
 
 
 CPU::CPU() {
-    LoadROM("../ibmlogo.ch8");
-    for(int i = 0; i < 334; i++) {
-        printf("Memory at %i: 0x%X\n",i, memory.read(i));
-    }
+    LoadROM("../1-chip8-logo.ch8");
+    // for(int i = 0; i < 334; i++) {
+    //     printf("Memory at %i: 0x%X\n",i, memory.read(i));
+    // }
     std::fill(std::begin(video), std::end(video), 0);
+    std::fill(std::begin(registers.V), std::end(registers.V), 0);
+    registers.I = 0;
     pc = 200;
 }
 
@@ -76,12 +78,15 @@ void CPU::decode_and_execute(uint16_t instruction){
         break;
     case 0x1: {
         // set pc to 2nd,3rd,4th nibble combined since it is a 12 bit address
-        uint16_t address = instruction & 0x0FFF;
+        uint16_t last3digits = instruction & 0x0FFF;
+        uint16_t address = ((last3digits >> 8) * 100) + (((last3digits & 0x00F0) >> 4) * 10) + (last3digits & 0xF);
+        printf("instruct = %04X address = %04X\n", instruction, address);
         pc = address;
         break;
     }
     case 0x2: {
-        uint16_t address = instruction & 0x0FFF;
+        uint16_t last3digits = instruction & 0x0FFF;
+        uint16_t address = ((last3digits >> 8) * 100) + (((last3digits & 0x00F0) >> 4) * 10) + (last3digits & 0xF);
         stack.push_back(pc);
         pc = address;
         break;
@@ -98,9 +103,12 @@ void CPU::decode_and_execute(uint16_t instruction){
         registers.V[target_reg] += value_to_add;
         break;
     }
-    case 0xA:
-        registers.I = instruction & 0x0FFF;
+    case 0xA: {
+        uint16_t last3digits = instruction & 0x0FFF;
+        uint16_t address = ((last3digits >> 8) * 100) + (((last3digits & 0x00F0) >> 4) * 10) + (last3digits & 0xF);
+        registers.I = address;
         break;
+    }
     case 0xD: {
         uint8_t x_reg = (instruction & 0x0F00) >> 8;
         uint8_t y_reg = (instruction & 0x00F0) >> 4;
@@ -110,7 +118,7 @@ void CPU::decode_and_execute(uint16_t instruction){
         uint8_t xcoord = registers.V[x_reg] & 63;
         uint8_t ycoord = registers.V[y_reg] & 31;
         
-        for (int row = registers.I; row < n; row++) {
+        for (int row = registers.I; row < registers.I + n; row++) {
             uint8_t spriteData = memory.read(row);
             uint32_t* screenData = &video[xcoord * ycoord];
             uint8_t mask = 0b10000000;
@@ -129,7 +137,7 @@ void CPU::decode_and_execute(uint16_t instruction){
                 mask = mask >> 1;
             }
             ycoord++;
-            if(ycoord > 63) break;
+            if(ycoord > 31) break;
         }
         break;
     }
