@@ -8,6 +8,7 @@ class Monitor
 private:
     CPU *cpu;
     int numJumps= 0;
+    
 public:
     Monitor(CPU *cpu);
     ~Monitor();

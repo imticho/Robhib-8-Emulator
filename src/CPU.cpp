@@ -3,14 +3,14 @@
 
 
 CPU::CPU() {
-    LoadROM("../1-chip8-logo.ch8");
+    LoadROM("../4-flags.ch8");
     // for(int i = 0; i < 334; i++) {
     //     printf("Memory at %i: 0x%X\n",i, memory.read(i));
     // }
     std::fill(std::begin(video), std::end(video), 0);
     std::fill(std::begin(registers.V), std::end(registers.V), 0);
     registers.I = 0;
-    pc = 200;
+    pc = 0x200;
 }
 
 CPU::~CPU() {}
@@ -33,7 +33,7 @@ void CPU::LoadROM(char const* filename) {
 		// Load the ROM contents into the Chip8's memory, starting at 0x200
 		for (long i = 0; i < size; ++i)
 		{
-			memory.write(200 + i , buffer[i]);
+			memory.write(0x200 + i , buffer[i]);
 		}
 
 		// Free the buffer
@@ -78,17 +78,32 @@ void CPU::decode_and_execute(uint16_t instruction){
         break;
     case 0x1: {
         // set pc to 2nd,3rd,4th nibble combined since it is a 12 bit address
-        uint16_t last3digits = instruction & 0x0FFF;
-        uint16_t address = ((last3digits >> 8) * 100) + (((last3digits & 0x00F0) >> 4) * 10) + (last3digits & 0xF);
-        printf("instruct = %04X address = %04X\n", instruction, address);
+        uint16_t address = instruction & 0x0FFF;
         pc = address;
         break;
     }
     case 0x2: {
-        uint16_t last3digits = instruction & 0x0FFF;
-        uint16_t address = ((last3digits >> 8) * 100) + (((last3digits & 0x00F0) >> 4) * 10) + (last3digits & 0xF);
+        uint16_t address = instruction & 0x0FFF;
         stack.push_back(pc);
         pc = address;
+        break;
+    }
+    case 0x3: {
+        uint8_t target_reg = (instruction & 0x0F00) >> 8;
+        uint8_t value = instruction & 0x00FF;
+        if (registers.V[target_reg] == value) pc += 2;
+        break;
+    }
+    case 0x4: {
+        uint8_t target_reg = (instruction & 0x0F00) >> 8;
+        uint8_t value = instruction & 0x00FF;
+        if (registers.V[target_reg] != value) pc += 2;
+        break;
+    }
+    case 0x5: {
+        uint8_t x_reg = (instruction & 0x0F00) >> 8;
+        uint8_t y_reg = (instruction & 0x00F0) >> 4;
+        if (registers.V[x_reg] == registers.V[y_reg]) pc += 2;
         break;
     }
     case 0x6: {
@@ -103,9 +118,77 @@ void CPU::decode_and_execute(uint16_t instruction){
         registers.V[target_reg] += value_to_add;
         break;
     }
+    case 0x8: {
+        uint8_t x_reg = (instruction & 0x0F00) >> 8;
+        uint8_t y_reg = (instruction & 0x00F0) >> 4;
+        switch (fourth_nibble)
+        {
+        case 0x0:
+            registers.V[x_reg] = registers.V[y_reg];
+            break;
+        case 0x1:
+            registers.V[x_reg] |= registers.V[y_reg];
+            break;
+        case 0x2:
+            registers.V[x_reg] &= registers.V[y_reg];
+            break;
+        case 0x3:
+            registers.V[x_reg] ^= registers.V[y_reg];
+            break;
+        case 0x4: {
+            uint16_t sum = registers.V[x_reg] + registers.V[y_reg];
+            registers.V[0xF] = (sum > 255) ? 1 : 0;
+            registers.V[x_reg] = sum & 0xFF;
+            break;
+        }
+        case 0x5:
+            if (registers.V[x_reg] >= registers.V[y_reg]) {
+                registers.V[0xF] = 1; // No borrow
+                registers.V[x_reg] -= registers.V[y_reg];
+            } else {
+                registers.V[0xF] = 0; // Borrow occurred
+                registers.V[x_reg] = (registers.V[x_reg] - registers.V[y_reg]) & 0xFF;
+            }
+            break;
+        case 0x6:
+            if(registers.V[x_reg] & 0b1) {
+                registers.V[0xF] = 1;
+            }
+            else {
+                registers.V[0xF] = 0;
+            }
+            registers.V[x_reg] = registers.V[x_reg] >> 1;
+            break;
+        case 0x7: 
+            if (registers.V[y_reg] >= registers.V[x_reg]) {
+                registers.V[0xF] = 1; // No borrow
+                registers.V[x_reg] = registers.V[y_reg] - registers.V[x_reg];
+            } else {
+                registers.V[0xF] = 0; // Borrow occurred
+                registers.V[x_reg] = (registers.V[y_reg] - registers.V[x_reg]) & 0xFF;
+            }
+            break;
+        case 0xE:
+            if(registers.V[x_reg] & 0b1) {
+                registers.V[0xF] = 1;
+            }
+            else {
+                registers.V[0xF] = 0;
+            }
+            registers.V[x_reg] = registers.V[x_reg] << 1;
+            break;
+        default:
+            break;
+        }
+    }
+    case 0x9: {
+        uint8_t x_reg = (instruction & 0x0F00) >> 8;
+        uint8_t y_reg = (instruction & 0x00F0) >> 4;
+        if (registers.V[x_reg] != registers.V[y_reg]) pc += 2;
+        break;
+    }
     case 0xA: {
-        uint16_t last3digits = instruction & 0x0FFF;
-        uint16_t address = ((last3digits >> 8) * 100) + (((last3digits & 0x00F0) >> 4) * 10) + (last3digits & 0xF);
+        uint16_t address = instruction & 0x0FFF;
         registers.I = address;
         break;
     }
@@ -114,32 +197,56 @@ void CPU::decode_and_execute(uint16_t instruction){
         uint8_t y_reg = (instruction & 0x00F0) >> 4;
         uint8_t n = instruction & 0x000F;
         registers.V[0xF] = 0;
-
         uint8_t xcoord = registers.V[x_reg] & 63;
         uint8_t ycoord = registers.V[y_reg] & 31;
         
-        for (int row = registers.I; row < registers.I + n; row++) {
-            uint8_t spriteData = memory.read(row);
-            uint32_t* screenData = &video[xcoord * ycoord];
+        for (int row = 0; row < n; row++) {
+            uint8_t spriteData = memory.read(row + registers.I);
             uint8_t mask = 0b10000000;
-            while (mask) {
-                if(mask & spriteData) {
-                    if(*screenData == 0xFFFFFFFF) {
-                        *screenData = 0x00000000;
+            for (int col = 0; col < 8; col++) {
+                uint8_t spritePixel = spriteData & (mask >> col); 
+                uint32_t* screenData = &video[(ycoord + row) * 64 + (xcoord + col)];
+                if(spritePixel) {
+                    if (*screenData == 0xFFFFFFFF) {
                         registers.V[0xF] = 1;
-                    } 
-                    else {
+                        *screenData = 0;
+                    }
+				    else {
                         *screenData = 0xFFFFFFFF;
                     }
                 }
-                screenData++;
-                if(screenData == nullptr) break;
-                mask = mask >> 1;
             }
-            ycoord++;
-            if(ycoord > 31) break;
         }
         break;
+    }
+    case 0xF: {
+        uint8_t vx = second_nibble;
+        uint8_t lastByte = (third_nibble << 4) | fourth_nibble;
+        switch (lastByte)
+        {
+        case 0x1E:
+            registers.I += registers.V[vx];
+            break;
+        case 0x33: {
+            uint8_t value = registers.V[vx];
+            memory.write(registers.I, value / 100);          // Hundreds digit
+            memory.write(registers.I + 1, (value / 10) % 10); // Tens digit
+            memory.write(registers.I + 2, value % 10);       // Ones digit
+            break;
+        }
+        case 0x55:
+            for (int i = 0; i <= vx; i++) {
+                memory.write(registers.I + i, registers.V[i]);
+            } 
+            break;
+        case 0x65:
+            for (int i = 0; i <= vx; i++) {
+                registers.V[i] = memory.read(registers.I + i);
+            } 
+            break;
+        default:
+            break;
+        }
     }
     default:
         break;

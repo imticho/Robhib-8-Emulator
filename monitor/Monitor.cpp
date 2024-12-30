@@ -2,7 +2,11 @@
 #include <iostream>
 #include <string>
 
-Monitor::Monitor(CPU *cpu): cpu(cpu) {}
+Monitor::Monitor(CPU *cpu): cpu(cpu) {
+    for(int i = 0; i <= 0xF; i++) {
+        static_assert(sizeof(cpu->registers.V[i]) == 1, "V registers are not 8 bits wide!");
+    }
+}
 
 Monitor::~Monitor() {}
 
@@ -19,19 +23,22 @@ void Monitor::printRegisters() {
 }
 
 void Monitor::printCurrentInstr() {
-    printf("pc = %d : Instruction: 0x%02X%02X\n", cpu->pc, cpu->memory.read(cpu->pc), cpu->memory.read(cpu->pc +1));
+    printf("pc = %04X : Instruction: 0x%02X%02X\n", cpu->pc, cpu->memory.read(cpu->pc), cpu->memory.read(cpu->pc +1));
 }
 
 void Monitor::printState() {
     printCurrentInstr();
     printRegisters();
     if(getInstructionType() == 0xD) {
-        printVideoBuffer();
+        // printVideoBuffer();
     }
     if(getInstructionType() == 0x1) {
         numJumps+=1;
     }
     printf("Number of Jumps: %d\n", numJumps);
+    if(cpu->pc == 0x049C) {
+        printf("Finished VX test\n");
+    }
 }
 
 uint8_t Monitor::getInstructionType(){
