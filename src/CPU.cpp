@@ -3,7 +3,7 @@
 
 
 CPU::CPU() {
-    LoadROM("../4-flags.ch8");
+    LoadROM("../5-quirks.ch8");
     // for(int i = 0; i < 334; i++) {
     //     printf("Memory at %i: 0x%X\n",i, memory.read(i));
     // }
@@ -127,59 +127,75 @@ void CPU::decode_and_execute(uint16_t instruction){
             registers.V[x_reg] = registers.V[y_reg];
             break;
         case 0x1:
-            registers.V[x_reg] |= registers.V[y_reg];
+            registers.V[x_reg] = registers.V[x_reg] | registers.V[y_reg];
             break;
         case 0x2:
-            registers.V[x_reg] &= registers.V[y_reg];
+            registers.V[x_reg] = registers.V[x_reg] & registers.V[y_reg];
             break;
         case 0x3:
-            registers.V[x_reg] ^= registers.V[y_reg];
+            registers.V[x_reg] = registers.V[x_reg] ^ registers.V[y_reg];
             break;
         case 0x4: {
-            uint16_t sum = registers.V[x_reg] + registers.V[y_reg];
-            registers.V[0xF] = (sum > 255) ? 1 : 0;
-            registers.V[x_reg] = sum & 0xFF;
+            int tempSum = int(registers.V[x_reg]) + int(registers.V[y_reg]);
+            registers.V[x_reg] = tempSum & 0xFF;
+            if(tempSum > 0xFF) {
+                registers.V[0xF] = 1;
+            }
+            else {
+                registers.V[0xF] = 0;
+            }
             break;
         }
-        case 0x5:
-            if (registers.V[x_reg] >= registers.V[y_reg]) {
-                registers.V[0xF] = 1; // No borrow
+        case 0x5: {
+            uint8_t temp = (registers.V[x_reg] >= registers.V[y_reg]) ? 1:0;
+            if(temp) {
                 registers.V[x_reg] -= registers.V[y_reg];
-            } else {
-                registers.V[0xF] = 0; // Borrow occurred
+            }
+            else {
                 registers.V[x_reg] = (registers.V[x_reg] - registers.V[y_reg]) & 0xFF;
             }
+            registers.V[0xF] = temp;
             break;
-        case 0x6:
+        }
+        case 0x6: {
+            uint8_t bitShifted;
             if(registers.V[x_reg] & 0b1) {
-                registers.V[0xF] = 1;
+                bitShifted = 1;
             }
             else {
-                registers.V[0xF] = 0;
+                bitShifted = 0;
             }
             registers.V[x_reg] = registers.V[x_reg] >> 1;
+            registers.V[0xF] = bitShifted;
             break;
-        case 0x7: 
-            if (registers.V[y_reg] >= registers.V[x_reg]) {
-                registers.V[0xF] = 1; // No borrow
+        }
+        case 0x7: {
+            uint8_t temp = (registers.V[y_reg] >= registers.V[x_reg]) ? 1:0;
+            if(temp) {
                 registers.V[x_reg] = registers.V[y_reg] - registers.V[x_reg];
-            } else {
-                registers.V[0xF] = 0; // Borrow occurred
+            }
+            else {
                 registers.V[x_reg] = (registers.V[y_reg] - registers.V[x_reg]) & 0xFF;
             }
+            registers.V[0xF] = temp;
             break;
-        case 0xE:
-            if(registers.V[x_reg] & 0b1) {
+        }
+        case 0xE: {
+            int temp = registers.V[x_reg];
+            registers.V[x_reg] = registers.V[x_reg] << 1;
+            if(temp & 0x80u) {
                 registers.V[0xF] = 1;
             }
             else {
                 registers.V[0xF] = 0;
             }
-            registers.V[x_reg] = registers.V[x_reg] << 1;
+
             break;
+        }
         default:
             break;
         }
+        break;
     }
     case 0x9: {
         uint8_t x_reg = (instruction & 0x0F00) >> 8;
@@ -190,6 +206,19 @@ void CPU::decode_and_execute(uint16_t instruction){
     case 0xA: {
         uint16_t address = instruction & 0x0FFF;
         registers.I = address;
+        break;
+    }
+    case 0xB: {
+        uint16_t address = instruction & 0x0FFF;
+        uint8_t x_reg = second_nibble;
+        pc = address + registers.V[x_reg];
+        break;
+    }
+    case 0xC: {
+        uint8_t x_reg = second_nibble;
+        uint8_t value = instruction & 0x00FF;
+        uint8_t randbyte = random();
+        registers.V[x_reg] = randbyte & value;
         break;
     }
     case 0xD: {

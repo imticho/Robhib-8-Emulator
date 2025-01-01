@@ -14,8 +14,8 @@ struct Timers {
 };
 
 struct Registers {
-    uint8_t V[16]; // General-purpose registers (V0 to VF)
-    uint16_t I; // Index register
+    uint8_t V[16] = {0}; // General-purpose registers (V0 to VF)
+    uint16_t I = 0; // Index register
 };
 
 
