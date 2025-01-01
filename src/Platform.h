@@ -2,7 +2,7 @@
 #include <vector>
 #include <SDL2/SDL.h>
 
-class Display
+class Platform
 {
 private:
     SDL_Window* window;
@@ -12,9 +12,10 @@ private:
     int window_width;
     int window_height;
 public:
-    Display(char const* title, int windowWidth, int windowHeight, int textureWidth, int textureHeight);
-    ~Display();
+    Platform(char const* title, int windowWidth, int windowHeight, int textureWidth, int textureHeight);
+    ~Platform();
     void Update(void const* buffer, int pitch);
+    bool processInput(char* keypad);
 };
 
 

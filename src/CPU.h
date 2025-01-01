@@ -3,7 +3,6 @@
 #define CPU_H
 
 #include "Memory.h"
-#include "Display.h"
 #include <fstream>
 #include <cstdint>
 #include <vector>
@@ -30,6 +29,7 @@ private:
 
 public:
     uint32_t video[64*32];
+    char keypad[16];
 
     CPU();
     ~CPU();
