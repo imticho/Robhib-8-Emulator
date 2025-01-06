@@ -23,7 +23,7 @@ void Monitor::printRegisters() {
 }
 
 void Monitor::printCurrentInstr() {
-    printf("pc = %04X : Instruction: 0x%02X%02X\n", cpu->pc, cpu->memory.read(cpu->pc), cpu->memory.read(cpu->pc +1));
+    printf("pc = 0x%04X : Instruction: 0x%02X%02X\n", cpu->pc, cpu->memory.read(cpu->pc), cpu->memory.read(cpu->pc +1));
 }
 
 void Monitor::printState() {
@@ -36,9 +36,6 @@ void Monitor::printState() {
         numJumps+=1;
     }
     printf("Number of Jumps: %d\n", numJumps);
-    if(cpu->pc == 0x049C) {
-        printf("Finished VX test\n");
-    }
 }
 
 uint8_t Monitor::getInstructionType(){

@@ -3,7 +3,7 @@
 
 
 CPU::CPU() {
-    LoadROM("../5-quirks.ch8");
+    LoadROM("../octopeg.ch8");
     // for(int i = 0; i < 334; i++) {
     //     printf("Memory at %i: 0x%X\n",i, memory.read(i));
     // }
@@ -51,7 +51,9 @@ uint16_t CPU::fetch() {
 }
 
 void CPU::decode_and_execute(uint16_t instruction){
-    // printf("Instruction: 0x%X\n", instruction);
+    if(pc == 0x0436) {
+        printf("problematic instruction");
+    }
     if(instruction == 0x00E0) {
         std::cout << "read first instruction correctly\n";
     }
@@ -62,20 +64,27 @@ void CPU::decode_and_execute(uint16_t instruction){
     int fourth_nibble = instruction & mask;
     switch (first_nibble)
     {
-    case 0x0: 
-        switch (fourth_nibble)
+    case 0x0: {
+        uint16_t last_three_nibbles = (second_nibble << 8) | (third_nibble <<4) | fourth_nibble;
+        switch (last_three_nibbles)
         {
-        case 0x0:
+        case 0x0E0:
             std::fill(std::begin(video), std::end(video), 0);
             break;
-        case 0xE:
+        case 0x0EE: {
+            uint8_t stack_Size  = stack.size();
+            if(stack_Size == 0) {
+                printf("EMERGENCY BROTHER\n");
+            } 
             pc = stack.back();
             stack.pop_back();
             break;
+        }
         default:
             break;
         }
         break;
+    }
     case 0x1: {
         // set pc to 2nd,3rd,4th nibble combined since it is a 12 bit address
         uint16_t address = instruction & 0x0FFF;
@@ -230,9 +239,15 @@ void CPU::decode_and_execute(uint16_t instruction){
         uint8_t ycoord = registers.V[y_reg] & 31;
         
         for (int row = 0; row < n; row++) {
+            if(ycoord + row > 31) {
+                break;
+            }
             uint8_t spriteData = memory.read(row + registers.I);
             uint8_t mask = 0b10000000;
             for (int col = 0; col < 8; col++) {
+                if(xcoord + col > 63) {
+                    break;
+                }
                 uint8_t spritePixel = spriteData & (mask >> col); 
                 uint32_t* screenData = &video[(ycoord + row) * 64 + (xcoord + col)];
                 if(spritePixel) {
@@ -248,11 +263,55 @@ void CPU::decode_and_execute(uint16_t instruction){
         }
         break;
     }
+    case 0xE: {
+        uint8_t vx = second_nibble;
+        switch(third_nibble) 
+        {
+            case 0x9:
+                if(keypad[registers.V[vx]]) {
+                    pc += 2;
+                }
+                break;
+            case 0xA:
+                if(!keypad[registers.V[vx]]) {
+                    pc += 2;
+                }
+                break;
+        }
+        break;
+    }
     case 0xF: {
         uint8_t vx = second_nibble;
         uint8_t lastByte = (third_nibble << 4) | fourth_nibble;
         switch (lastByte)
         {
+        case 0x07:
+            registers.V[vx] = timers.delay_timer;
+            break;
+        case 0x15:
+            timers.delay_timer = registers.V[vx];
+            break;
+        case 0x18:
+            timers.sound_timer = registers.V[vx];
+        case 0x0A: {
+            bool keyPressed = false;
+            for(int i = 0; i < 16; i++) {
+                if(keypad[i]) {
+                    keyPressed = true;
+                    break;
+                }
+            }
+            if(!keyPressed) {
+                pc -=2;
+            } 
+            break;
+        }
+        case 0x29: {
+            int offset = 80;
+            uint8_t hexChar = registers.V[vx];
+            registers.I = offset + (hexChar * 5);
+            break;
+        }
         case 0x1E:
             registers.I += registers.V[vx];
             break;

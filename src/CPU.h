@@ -23,11 +23,11 @@ class CPU
 private:
     Registers registers;
     std::vector<uint16_t> stack;
-    Timers timers;
     Memory memory;
     unsigned int pc;
 
 public:
+    Timers timers;
     uint32_t video[64*32];
     char keypad[16];
 
